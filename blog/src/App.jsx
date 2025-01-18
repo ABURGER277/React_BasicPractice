@@ -7,9 +7,8 @@ function App() {
   // 2. useState('메모리에 올릴 데이터')
   // 3. let[string, dispatch]
   // State는 데이터의 반응성을 유지해줌.(vue ref생각하면 될듯)
-  let [title1, a] = useState('남자 코트 추천');
-  let [title2, b] = useState('강남 우동 맛집');
-  let [title3, c] = useState('파이썬 독학');
+  let [title, changeTitle] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
+  let [like, setLike] = useState(0);
 
   return (
     // react 문법으로 Html Class 작성할 때 className이라는 property를 사용해야한다.
@@ -23,12 +22,29 @@ function App() {
         <h4 style={{color: 'red', fontSize: '16px'}}>This is Blog</h4>
       </div>
       <div className='list'>
-        {/* {}문법으로  데이터 Binding 가능*/}
-        <h4>{ title1 }</h4>
+      <button onClick={() => {
+          let copy = [...title];
+          changeTitle(copy.sort());
+        }
+      }> 가나다순 정렬</button>
+      <button onClick={() => {
+          let copy = [...title];
+          copy[0] = '여자 코트 추천';
+          changeTitle(copy);
+        }
+      }>글 수정</button>
+      {/* {}문법으로  데이터 Binding 가능*/}
+      {/* onClick 이벤트핸들러를 {안에 작성 가능} */}
+      {/* like는 useState로 선언되어서 dispatch함수를 통해서 set해줘야함. */}
+        <h4>{ title[0] } <span onClick={ () => { setLike(like++) } }> 👍 </span> { like } </h4>
         <p>1월 18일 발행</p>
-        <h4>{ title2 }</h4>
+      </div>
+      <div className='list'>
+        <h4>{ title[1] }</h4>
         <p>1월 18일 발행</p>
-        <h4>{ title3 }</h4>
+      </div>
+      <div className='list'>
+        <h4>{ title[2] }</h4>
         <p>1월 18일 발행</p>
       </div>
     </div>
